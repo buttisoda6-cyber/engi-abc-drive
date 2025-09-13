@@ -47,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Engineering theme colors
+        'electric-blue': "hsl(var(--electric-blue))",
+        'electric-blue-glow': "hsl(var(--electric-blue-glow))",
+        'tech-gray': "hsl(var(--tech-gray))",
+        'dark-surface': "hsl(var(--dark-surface))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,25 +70,47 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
+        "slide-in": {
+          "0%": { opacity: "0", transform: "translateX(32px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" }
+        },
+        "slide-out": {
+          "0%": { opacity: "1", transform: "translateX(0)" },
+          "100%": { opacity: "0", transform: "translateX(-32px)" }
+        },
+        "glow-pulse": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(205 100% 60% / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(205 100% 60% / 0.6)" }
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "slide-in": "slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        "slide-out": "slide-out 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite"
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-surface': 'var(--gradient-surface)',
+        'gradient-glow': 'var(--gradient-glow)'
+      },
+      boxShadow: {
+        'glow': 'var(--shadow-glow)',
+        'card': 'var(--shadow-card)',
+        'inner': 'var(--shadow-inner)'
       },
     },
   },

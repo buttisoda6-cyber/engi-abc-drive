@@ -2,41 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Engineering Dictionary Design System - Dark theme with electric blue accents */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark engineering theme */
+    --background: 215 28% 8%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 215 25% 12%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Electric blue primary */
+    --primary: 205 100% 60%;
+    --primary-foreground: 215 28% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary tech gray */
+    --secondary: 215 20% 20%;
+    --secondary-foreground: 210 40% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 20% 15%;
+    --muted-foreground: 210 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 205 100% 60%;
+    --accent-foreground: 215 28% 8%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 20% 20%;
+    --input: 215 20% 15%;
+    --ring: 205 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Engineering-specific design tokens */
+    --electric-blue: 205 100% 60%;
+    --electric-blue-glow: 205 100% 70%;
+    --tech-gray: 215 20% 20%;
+    --dark-surface: 215 25% 12%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(205 100% 60%), hsl(200 100% 50%));
+    --gradient-surface: linear-gradient(145deg, hsl(215 25% 12%), hsl(215 20% 15%));
+    --gradient-glow: radial-gradient(circle at center, hsl(205 100% 60% / 0.15), transparent 70%);
+    
+    /* Shadows with electric glow */
+    --shadow-glow: 0 0 30px hsl(205 100% 60% / 0.3);
+    --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.3);
+    --shadow-inner: inset 0 1px 0 hsl(210 40% 98% / 0.05);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +122,88 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Engineering-themed component utilities */
+  .engineering-card {
+    @apply bg-card border border-border rounded-xl shadow-[var(--shadow-card)] backdrop-blur-sm;
+    background: var(--gradient-surface);
+    box-shadow: var(--shadow-inner), var(--shadow-card);
+  }
+  
+  .electric-glow {
+    @apply relative;
+    background: var(--gradient-glow);
+  }
+  
+  .electric-glow::before {
+    content: '';
+    @apply absolute inset-0 rounded-inherit opacity-50;
+    background: var(--gradient-glow);
+    filter: blur(20px);
+    z-index: -1;
+  }
+  
+  .letter-display {
+    @apply text-8xl md:text-9xl font-black tracking-tighter;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px hsl(205 100% 60% / 0.3);
+  }
+  
+  .tech-button {
+    @apply relative overflow-hidden rounded-xl px-6 py-3 font-semibold transition-all duration-300;
+    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground;
+    @apply border border-border hover:border-primary/50;
+    box-shadow: var(--shadow-inner);
+  }
+  
+  .tech-button:hover {
+    box-shadow: var(--shadow-glow), var(--shadow-inner);
+    transform: translateY(-2px);
+  }
+  
+  .navigation-button {
+    @apply relative w-12 h-12 rounded-full flex items-center justify-center;
+    @apply bg-card border border-border transition-all duration-300;
+    @apply hover:border-primary hover:bg-primary/10;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .navigation-button:hover {
+    box-shadow: var(--shadow-glow);
+    transform: scale(1.05);
+  }
+  
+  .slide-enter {
+    @apply opacity-0 translate-x-8;
+    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .slide-exit {
+    @apply opacity-100 translate-x-0;
+    animation: slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  @keyframes slideIn {
+    to {
+      @apply opacity-100 translate-x-0;
+    }
+  }
+  
+  @keyframes slideOut {
+    to {
+      @apply opacity-0 -translate-x-8;
+    }
+  }
+  
+  .term-image {
+    @apply w-full h-64 object-contain rounded-lg;
+    filter: drop-shadow(0 10px 20px hsl(0 0% 0% / 0.3));
   }
 }
